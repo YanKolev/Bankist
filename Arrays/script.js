@@ -74,3 +74,59 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// Why array have methods? Methods are simply functions that we can call on objects 
+//they are functions attached to objects. That means that arrays themselves are also objects. 
+//these arrays methods are simply functions that we attach to arrays in all JS. 
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+//first method- slice
+console.log(arr.slice(2)); 
+// this doesnt not mutate the original array, it makes copy of the array with the extracted parts
+console.log(arr.slice(2,4));
+console.log(arr.slice(-2));
+console.log(arr.slice(-1));
+console.log(arr.slice(1,-2))
+//slice method to create a shallow copy of anny array
+console.log(arr.slice()); //this is for chaining- multiple methods together
+console.log([...arr]);
+
+
+//second method- splice
+//it mutates the original array, otherwise its almost the same as slice
+
+console.log(arr.splice(2));
+console.log(arr);
+//splice is used to remove elements from arrays
+arr.splice(-1);
+console.log(arr);
+arr.splice(1,2);
+console.log(arr);
+
+
+//third method - Reverse
+
+//Reverse also mutates the array
+
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 'i', 'h','g', 'f'];
+console.log(arr2.reverse());
+console.log(arr2);
+
+//fourth method- Concat
+
+//used to concatanate 2 arrays, DOES NOT MUTATE ORIGINAL ARRAYS
+const letters = arr.concat(arr2); // we have to speccify the second array
+//first array will be the one on which the method is called- arr, and the second in brackets-> one that we pass into the method.
+//variation is :
+console.log([...arr, ...arr2]) // alternative to concat method
+
+
+//fifth method - Join
+
+console.log(letters.join('-'));
+
+//All 5 methods can be used also with- push, unshift, pop, shift, indexof, includes
+// also keep track on the on the MDN documents.
+
