@@ -130,3 +130,31 @@ console.log(letters.join('-'));
 //All 5 methods can be used also with- push, unshift, pop, shift, indexof, includes
 // also keep track on the on the MDN documents.
 
+
+
+// -- At method/ introduced in ES 2022
+
+const arr3 = [23, 11, 64];
+console.log(arr3[0]);
+console.log(arr3.at(0)); 
+// the new at method is used in particular cases
+//lets say we needed to get the last element of an array but we do not know the lenght of the array
+
+//usually we will write it like: 
+console.log(arr3[arr3.length - 1]);
+
+//KEEP IN MIND THAT ARRAYS ARE 0 INDEX BASED
+
+//another solution is slice method- to get a copy of it
+console.log(arr3.slice(-1)[0]); // we add -1 to get the last element, and getting it out we add [0]
+
+//new at method makes it easier
+
+console.log(arr3.at(-1));
+//at method starts to count from the right side of the array
+
+//if you want to count or method chaining AT is quite helpful to use instead of old ways
+//if you want a quick way to get a value- u can use the bracket notation
+
+//at method also works on strings 
+console.log('jonas'.at[0]);
