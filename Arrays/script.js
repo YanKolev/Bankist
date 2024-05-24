@@ -65,11 +65,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+
 
 //const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -204,3 +200,31 @@ movements.forEach(function(mov, i, arr){ // mov= movement, i-index, arr-array
 
 //NB continue and break statements do not work in a forEach method.
 //forEach will always loop over the entire array, if you want to break-> for of loop
+
+
+
+
+
+//--- FOREACH WITH MAPS AND SETS ---
+
+// MAP FOR_EACH
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function(value, key, map){
+  console.log(`${key}: ${value}`)
+})
+
+//SET FOR_EACH
+
+//in the last one we will see that the key is exactly the same as a value
+// a set doesnt have keys, and it doesnt have indexes,
+
+const currenciesUnique = new Set(['USD','GBP', 'USD','EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function(value, key, map){
+  console.log(`${key}: ${value}`)
+})
