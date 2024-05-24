@@ -71,7 +71,7 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -158,3 +158,49 @@ console.log(arr3.at(-1));
 
 //at method also works on strings 
 console.log('jonas'.at[0]);
+
+
+
+
+
+// ---  Looping arrays for EACH --- 
+
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//if we want to print a message for each movement we need to loop over
+// positive values- deposits, negative value-withdrawals
+
+//for (const movement of movements){
+for(const [i, movement] of movements.entries()){  // here we will get i as a counter and then it will count eah transaction
+  if (movement >0){
+    console.log(`Movement ${i+1}: You deposited ${movement}`);
+  } else {
+    console.log(`Movement ${i+1}: You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+//how to use the for each method to achieve something similar, but slightly easier
+/* forEach is higher order function, which requires call back function in order to tell it what to do
+for eah method will call the function, forEach method loops over the array and in each adoration it will execute
+this callback function, as it calls the function for each adoration it will pass over the current elements as argument
+*/
+
+movements.forEach(function(mov, i, arr){ // mov= movement, i-index, arr-array
+  if (mov >0){
+    console.log(`Movement ${i+1}: You deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i+1}: You withdrew ${Math.abs(mov)}`);
+  }
+})
+// below is how the forEach pass the element of the array
+// You give instructions with the function 
+
+// 0:function(200)
+// 1:function(450)
+// 2:function(400)
+
+// in the for each method is a lot easier to get into the current index- for each passed the current element, index and the entire array that we are looping, hence we can specify it in the parameter list
+
+//NB continue and break statements do not work in a forEach method.
+//forEach will always loop over the entire array, if you want to break-> for of loop
