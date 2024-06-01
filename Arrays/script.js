@@ -61,29 +61,34 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements){
-  movements.forEach(function(mov,i)  {
+const displayMovements = function(movements) {
+  containerMovements.innerHTML = ''; // html return everything including the html/ but here is used as a setter.
 
-    const type = mov > 0 ? 'deposit': 'withdrawal';
+  movements.forEach(function(mov, i){
+    const type = mov > 0 ?"deposit" : "withdrawal"
 
-   const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--
-          ${type}">${
-      i + 1
-    } ${type}</div>
-        <div class="movements__value">${mov}</div>
-      </div>
+
+    const html = `
+    <div class="movements__row">
+      <div class="movements__type movements__type--${type}">${i + 1}</div>
+      
+      <div class="movements__value">${mov}</div>
+  </div>
+
     `;
-    
-    containerMovements.insertAdjacentHTML('afterbegin')
+
+    containerMovements.insertAdjacentHTML("afterbegin",html)
+      //any new child element will appear before the child elements that there were. 
+      
+
 
 
   });
 };
 
 
-displayMovements(accoun1.movements)
+displayMovements(account1.movements)
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
