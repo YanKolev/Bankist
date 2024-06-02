@@ -26,3 +26,40 @@ Hints: Use tools from all lectures in this section so far 😉
 GOOD LUCK 😀
 
 */
+
+
+/*
+5 dog owners-> dog age
+A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years
+old.
+
+function checkDogs-> accepts 2 arrays, 
+create a shallow copy of fucntion1 and remove the last 2 entries. do not mutate!!! 
+
+array with the data of function 1 (corrected) and function 2 
+
+each remaining dog, log to the console whether it's an adult ("Dog
+🐶 number 1
+is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy") */
+
+const julDogs = [3, 5, 2, 12, 7];
+const katDogs = [4, 1, 15, 8, 3];
+
+//console.log(julDogs);
+//console.log(julDogs.slice(1, -2, -1)) //removes first and last 2 since false positive
+
+const twoArr = julDogs.concat(katDogs); // concats 2 arrays
+//console.log(twoArr);
+
+const correctData = julDogs.slice(1, -2, -1).concat(katDogs); // concat of the fixed array and 
+console.log(correctData);
+
+
+for(const [i, correctData] of correctData.entries()){  
+    if (correctData >= 3){
+      console.log(`Dog ${i+1}: is an adult, and is 5 years old ${correctData}`);
+      
+    } else {
+      console.log(`Dog ${i+1}: is still a puppy ${correctData} `);
+    }
+  }
