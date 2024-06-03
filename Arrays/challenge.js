@@ -52,14 +52,70 @@ const twoArr = julDogs.concat(katDogs); // concats 2 arrays
 //console.log(twoArr);
 
 const correctData = julDogs.slice(1, -2, -1).concat(katDogs); // concat of the fixed array and 
-console.log(correctData);
+//console.log(correctData);
 
 
-for(const [i, correctData] of correctData.entries()){  
-    if (correctData >= 3){
-      console.log(`Dog ${i+1}: is an adult, and is 5 years old ${correctData}`);
-      
+const checkDogsME = function(julDogs, katDogs){
+
+  const rightInfo = julDogs.slice(1,-1,-2).concat(katDogs);
+  console.log(rightInfo);
+
+  for (let value of rightInfo){
+    if (value >= 3){
+      console.log(`Dog number:${value} is an adult, and is ${value} years old`)
     } else {
-      console.log(`Dog ${i+1}: is still a puppy ${correctData} `);
+      console.log(`Dog number: ${value} is still a puppy`)
     }
+
   }
+
+}
+
+checkDogsME(julDogs, katDogs);
+
+
+console.log('---------------------------------------------------------')
+
+const checkDogsv2 = function(julDogs, katDogs){
+
+  const rightInfo = julDogs.slice(1,-1,-2).concat(katDogs);
+  console.log(rightInfo);
+
+  for ( const [i, value] of rightInfo.entries()){
+    if (value >= 3){
+      console.log(`Dog number ${i + 1} is an adult, and is ${value} years old`)
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy`)
+    }
+
+  }
+
+}
+
+checkDogsv2(julDogs, katDogs);
+
+// COurse variant
+
+const checkDogs  = function(dogsJulia,dogsKate){
+  const dogsJuliaCorrected = dogsJulia.slice();
+  dogsJuliaCorrected.splice(0,1);
+  dogsJuliaCorrected.splice(-2);
+  console.log(dogsJuliaCorrected);
+
+  const dogs = dogsJuliaCorrected.concat(dogsKate);
+  console.log(dogs);
+
+  dogs.forEach(function(dog,i){
+    if (dog >= 3 ){
+      console.log(`"Dog
+      🐶 number ${i + 1}
+      is an adult, and is ${dog} years old"`)
+    } else {
+      console.log(`"Dog number ${i + 1} is still a puppy`)
+    }
+  })
+
+
+}
+
+checkDogs([3, 5, 2, 12, 7],[4, 1, 15, 8, 3])
