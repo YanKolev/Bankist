@@ -337,3 +337,29 @@ console.log(movementsDescriptionsv2);
 //the map method calls the function for each of the array elements in the movement array 
 // and since we are using only - mov and i- mov>current array element and i>current array index
 // map method does not create side effect, but instead we created a new array. 
+
+
+
+// ---- Filter Method ----
+
+const deposits = movements.filter(function(mov){
+  return mov > 0;
+
+})
+console.log(movements);
+console.log(deposits);
+
+//for of loop variant of the filter method. verbose variant
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
+
+/*const withdrawals = movements.filter(function(mov){
+  return mov < 0;
+})
+console.log(withdrawals); */
+
+//arrowfunction variant
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals)
+
