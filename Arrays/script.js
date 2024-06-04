@@ -257,3 +257,55 @@ console.log(currenciesUnique);
 currenciesUnique.forEach(function(value, key, map){
   console.log(`${key}: ${value}`)
 })
+
+//most common methods in arrays: map, filter and reduce
+
+//map method-used to move over arrays, is similar to the forEach method, creates brand new array from the original one
+// basically returns new array containing the results of applying an operation on all original array elements.
+
+//filter method- used for filtering elements in the original array which satisfy certain condition.
+// returns a new array containing the array elements that passed the specified test condition
+
+//reduce method- reduces all array elements down to one single value (adding all elements together)
+//there is no new array in this method only the reduced value.
+
+// --- Map Method ---
+
+const movementsEuro = [200, 450, -400, 3000, -650, -130, 70, 1300]
+
+const eurToUsd = 1.1;
+
+const convertedMovements = movementsEuro.map(function(mov){
+  return mov * eurToUsd; //here we use a function to solve the problem
+})
+console.log(movementsEuro);
+console.log(convertedMovements);
+
+//same method but with for of loop
+
+const movementsUSDfor = [];
+for (const mov of movementsEuro) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+//here we loop over one array and manually create a new one
+
+//we can simplify the callback function with an arrow
+
+/*
+const convertedMovements = movementsEuro.mapfunction(mov => mov * eurToUsd); 
+*/
+
+ const movementsDescriptions = movements.map((mov, i , arr) =>{
+  if (mov >0){
+    return `Movement ${i+1}: You deposited ${mov}`;
+  } else {
+    return `Movement ${i+1}: You withdrew ${Math.abs(mov)}`;
+  }
+})
+//converting console logs into return functions, 
+//totally possible to have two or more return functions
+
+const movementsDescriptionsv2 = movements.map((mov, i) => `Movement ${i + 1}: You ${mov > 0 ? 'deposited': 'withdrew'} ${Math.abs(mov)}`)
+console.log(movementsDescriptionsv2);
+//the map method calls the function for each of the array elements in the movement array 
+// and since we are using only - mov and i- mov>current array element and i>current array index
+// map method does not create side effect, but instead we created a new array. 
