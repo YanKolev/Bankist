@@ -89,6 +89,14 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements)
 
+//display balance function with movements and reduce method.
+const calcDisplayBalance = function(movements){
+  const balance = movements.reduce((acc, mov)=>acc +mov, 0);
+  labelBalance.textContent = `${balance} EUR`
+};
+
+calcDisplayBalance(account1.movements);
+
 //creating username functionality 
 // using for each as it mutates and creates the side effect that we are looking for the functionality 
 const createUsernames = function(accs){
@@ -113,6 +121,7 @@ const createUsernames = function(accs){
 
 createUsernames(accounts);
 console.log(accounts);
+
 
 
 
@@ -363,3 +372,37 @@ console.log(withdrawals); */
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals)
 
+
+// ---- Reduce Method ---- 
+// reduce method- basically to boil down all the elements within an array to a single value
+
+console.log(movements);
+
+//acc- accumulator is like a snowball
+const balance = movements.reduce(function(acc, cur, i, arr){
+  console.log(`Iteration ${i}: ${acc}`); 
+  return acc + cur// in each loop adoration we return the updated accuulator + the current value
+}, 0) // the 0 if from where we start counting,
+console.log(balance)
+
+
+//arrow function variant
+const balanceArr = movements.reduce((acc,cur)=>acc+cur,0);
+console.log(balanceArr);
+
+
+//for loop version 
+// in order to make the loop we need external variable- let in order to correctly loop it 
+
+let balance2 = 0;
+for(const mov of movements) balance2 +=mov;
+console.log(balance2)
+
+//maximum value of the movements array (3000) we can use reduce to boil it down
+const max = movements.reduce((acc, mov)=> {
+  if (acc >mov)
+    return acc;//to keep the value of the accumulator
+  else
+    return mov;
+},movements[0])
+console.log(max);
