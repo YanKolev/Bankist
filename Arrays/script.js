@@ -89,6 +89,32 @@ const displayMovements = function(movements) {
 
 displayMovements(account1.movements)
 
+//creating username functionality 
+// using for each as it mutates and creates the side effect that we are looking for the functionality 
+const createUsernames = function(accs){
+  accs.forEach(function(acc){
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(' ')
+    .map(name => name[0]) //map was used to create a new array to simplify the name creation
+    .join('');
+  })
+
+
+
+  /*const username = user
+    .toLowerCase()
+    .split(' ')
+    .map(name => name [0]) //this is returning with an arrow function 
+    .join('')
+  return username;*/
+
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -104,40 +130,42 @@ displayMovements(account1.movements)
 //they are functions attached to objects. That means that arrays themselves are also objects. 
 //these arrays methods are simply functions that we attach to arrays in all JS. 
 
-let arr = ['a', 'b', 'c', 'd', 'e'];
+//let arr = ['a', 'b', 'c', 'd', 'e'];
 
 //first method- slice
-console.log(arr.slice(2)); 
+//console.log(arr.slice(2)); 
 // this doesnt not mutate the original array, it makes copy of the array with the extracted parts
-console.log(arr.slice(2,4));
-console.log(arr.slice(-2));
-console.log(arr.slice(-1));
-console.log(arr.slice(1,-2))
+//console.log(arr.slice(2,4));
+//console.log(arr.slice(-2));
+//console.log(arr.slice(-1));
+//console.log(arr.slice(1,-2))
 //slice method to create a shallow copy of anny array
-console.log(arr.slice()); //this is for chaining- multiple methods together
-console.log([...arr]);
+//console.log(arr.slice()); //this is for chaining- multiple methods together
+//console.log([...arr]);
 
 
 //second method- splice
 //it mutates the original array, otherwise its almost the same as slice
 
-console.log(arr.splice(2));
-console.log(arr);
+//console.log(arr.splice(2));
+//console.log(arr);
 //splice is used to remove elements from arrays
-arr.splice(-1);
-console.log(arr);
-arr.splice(1,2);
-console.log(arr);
+//arr.splice(-1);
+//console.log(arr);
+//arr.splice(1,2);
+//console.log(arr);
 
 
 //third method - Reverse
 
 //Reverse also mutates the array
 
+/*
 arr = ['a', 'b', 'c', 'd', 'e'];
 const arr2 = ['j', 'i', 'h','g', 'f'];
 console.log(arr2.reverse());
-console.log(arr2);
+console.log(arr2); 
+
 
 //fourth method- Concat
 
@@ -184,7 +212,7 @@ console.log(arr3.at(-1));
 //at method also works on strings 
 console.log('jonas'.at[0]);
 
-
+*/
 
 
 
