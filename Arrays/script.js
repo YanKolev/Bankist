@@ -65,14 +65,14 @@ const displayMovements = function(movements) {
   containerMovements.innerHTML = ''; // html return everything including the html/ but here is used as a setter.
 
   movements.forEach(function(mov, i){
-    const type = mov > 0 ?"deposit" : "withdrawal"
+    const type = mov > 0 ? 'deposit' : 'withdrawal'
 
 
     const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1}</div>
       
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}E</div>
   </div>
 
     `;
@@ -96,6 +96,34 @@ const calcDisplayBalance = function(movements){
 };
 
 calcDisplayBalance(account1.movements);
+
+//creating  display summary function (incomes, outcomes, interest)
+
+const calcDisplaySummary = function (movements){
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}E`
+
+  const out = movements
+    .filter(mov => mov <0)
+    .reduce((acc, mov) => acc +mov, 0)
+  labelSumOut.textContent = `${Math.abs(out)}E`
+
+  const interest = movements
+    .filter(mov => mov >0)
+    .map(deposit => deposit *1,2/100)
+    .filter((int, i , arr) =>{ //in case there is a new rule if the bank decideds to exclude interest lower than 1 
+      console.log(arr);
+      return int >=1;
+    })
+    .reduce((acc,int)=>acc+ int, 0);
+  labelSumInterest.textContent = `${interest}E`
+
+
+
+}
+calcDisplaySummary(account1.movements);
 
 //creating username functionality 
 // using for each as it mutates and creates the side effect that we are looking for the functionality 
@@ -310,7 +338,7 @@ currenciesUnique.forEach(function(value, key, map){
 
 const movementsEuro = [200, 450, -400, 3000, -650, -130, 70, 1300]
 
-const eurToUsd = 1.1;
+//const eurToUsd = 1.1;
 
 const convertedMovements = movementsEuro.map(function(mov){
   return mov * eurToUsd; //here we use a function to solve the problem
@@ -406,3 +434,23 @@ const max = movements.reduce((acc, mov)=> {
     return mov;
 },movements[0])
 console.log(max);
+
+// chaining method of all the combined 3 methods- map, filter and reduce
+
+
+const eurToUsd = 1.1;
+console.log(movements);
+
+// data pipeline
+//the best way to troubleshoot an array with steps like that is check after every method in case the result is strange
+const totalDepositsUSD = movements
+.filter(mov=> mov >0) // in order to check if the filte is working correctly, u will have to check the parameter thatyou get access to in the call back function
+
+/*.map(mov,i , arr) => {
+  console.log(arr);
+   return mov * eurToUsd;
+})*/
+.map(mov => mov* eurToUsd)
+.reduce((acc, mov)=>acc +mov); // we are filtering only the deposits on this  and then we can convert it to USD
+//all 3 methodss chained here.
+console.log(totalDepositsUSD);
