@@ -18,3 +18,66 @@ Test data:
 §Data 2: [16, 6, 10, 5, 6, 1, 4]
 GOOD LUCK 😀
 */
+
+/*
+
+age1 = [5, 2, 4, 1, 15, 8, 3]
+age2 = [16, 6, 10, 5, 6, 1, 4]
+
+const transformed = age1.map((num, i) =>{
+    if(num <= 2){
+        console.log(`Dog at position ${i+1} human's age is ${num *2}`)
+    } else{
+        console.log(`Dog at position ${i+1} human's age is ${16 + num*2}`)
+    }
+
+    
+})
+
+
+let oldDogs = transformed.filter(function(num){
+    return num <18;
+})
+console.log(oldDogs);
+
+
+const initialValue = 0;
+const sumWithInitial = age1.reduce(
+  (accumulator, currentValue) => accumulator + currentValue,
+  initialValue,
+);
+
+console.log(sumWithInitial);
+
+*/
+
+// Course solution 
+
+const calcAverageHumanAge = function(ages){
+    const humanAges = ages.map(age => age <= 2 ? 2 *age : 16 + age *4)
+    console.log(humanAges);
+
+    const adults = humanAges.filter(age => age >= 18)
+    console.log(humanAges);
+    console.log(adults);
+
+    const average = adults.reduce((acc, age)=> acc +age, 0) / adults.length;
+    
+    // more complicated solution to calculate the average
+    // 2, 3 (2+3)/2 = 2.5
+    //we can devide both of them immediately- 2/2+3/2 = 2.5
+    
+    /*
+    const average = adults. reduce((acc, age, i, arr)=> acc+ age/ arr.lenght , 0);
+    */
+    //its better to use arr, instead of adults.legth
+
+
+
+    return average; 
+
+}
+
+ const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+ const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+ console.log(avg1, avg2);
