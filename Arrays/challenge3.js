@@ -18,3 +18,11 @@ keeping dogs that are at least 18 years old)
 3. Calculate the average human age of all adult dogs (you should already know
 from other challenges how we calculate averages 😉)
 */
+
+const calcAverageHumanAge = ages => ages.map(age => age <= 2 ? 2 *age : 16 + age *4)
+    .filter(age => age >= 18)
+    .reduce((acc, age, i, arr) => acc +age / arr.length , 0); // the only way to calculate the average
+
+     
+
+
