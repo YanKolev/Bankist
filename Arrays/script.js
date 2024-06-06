@@ -454,3 +454,26 @@ const totalDepositsUSD = movements
 .reduce((acc, mov)=>acc +mov); // we are filtering only the deposits on this  and then we can convert it to USD
 //all 3 methodss chained here.
 console.log(totalDepositsUSD);
+
+//--- Find method ---
+
+// The find method, also accepts callback function ->Like the other arrays it loops over the array when the method is called
+//find retrieves an element of the array, 
+//it retrieves the first element that satisfies the condition, 
+//DOES NOT MAKES A NEW ARRAY 
+
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+// Find method is a bit similar to the filter methods, but there are fundamental differences: 
+// Filter- returns all the elements that match the condition,
+// Find- only returns the first one. 
+// Second BIG DIFFERENCE: Filter method returns a new array: FIND RETURNS ONLY THE ELEMENT
+
+console.log(accounts);
+
+const account = accounts.find(acc => acc.owner === 'Jesica Davis');
+ //when we loop over the accounts, each account is an element
+console.log(account);
