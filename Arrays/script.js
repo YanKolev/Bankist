@@ -72,7 +72,7 @@ const displayMovements = function(movements) {
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${i + 1}</div>
       
-      <div class="movements__value">${mov}E</div>
+      <div class="movements__value">${mov}€</div>
   </div>
 
     `;
@@ -90,9 +90,10 @@ const displayMovements = function(movements) {
 
 
 //display balance function with movements and reduce method.
-const calcDisplayBalance = function(movements){
-  const balance = movements.reduce((acc, mov)=>acc +mov, 0);
-  labelBalance.textContent = `${balance} EUR`
+const calcDisplayBalance = function(acc){
+  acc.balance = acc.movements.reduce((acc, mov)=>acc +mov, 0);
+
+  labelBalance.textContent = `${acc.balance}€`
 };
 
 
@@ -103,22 +104,22 @@ const calcDisplaySummary = function (acc){
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}E`
+  labelSumIn.textContent = `${incomes}€`
 
   const out = acc.movements
     .filter(mov => mov <0)
     .reduce((acc, mov) => acc +mov, 0)
-  labelSumOut.textContent = `${Math.abs(out)}E`
+  labelSumOut.textContent = `${Math.abs(out)}€`
 
   const interest = acc.movements
-    .filter(mov => mov >0)
-    .map(deposit => deposit *acc.interestRate/100)
+    .filter(mov => mov > 0)
+    .map(deposit => deposit *acc.interestRate/ 100)
     .filter((int, i , arr) =>{ //in case there is a new rule if the bank decideds to exclude interest lower than 1 
       console.log(arr);
       return int >=1;
     })
     .reduce((acc,int)=>acc+ int, 0);
-  labelSumInterest.textContent = `${interest}E`
+  labelSumInterest.textContent = `${interest}€`
 
 
 
@@ -150,6 +151,22 @@ const createUsernames = function(accs){
 createUsernames(accounts);
 console.log(accounts);
 
+// function for updating UI 
+const updateUI = function(acc){
+
+  //Display movements
+  displayMovements(acc.movements);
+
+  //Display balance
+  calcDisplayBalance(acc);
+
+  //Display summary
+  calcDisplaySummary(acc);
+
+};
+
+
+
 //Event handlers
 
 let currentAccount; 
@@ -176,20 +193,41 @@ btnLogin.addEventListener('click', function(e){
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+
+    // update UI call
+    updateUI(currentAccount);
+
+    /*
+    Commenting out in order to refactor it to a single function
+
     //Display movements
     displayMovements(currentAccount.movements);
 
     //Display balance
-    calcDisplayBalance(currentAccount.movements);
+    calcDisplayBalance(currentAccount);
 
     //Display summary
     calcDisplaySummary(currentAccount);
-    
-    
+    */
   }
 
 });
 
+btnTransfer.addEventListener('click', function(e){
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value)
+  const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if(amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc?.username !== currentAccount.username){
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    updateUI(currentAccount);
+
+  }
+})
 
 
 /////////////////////////////////////////////////
