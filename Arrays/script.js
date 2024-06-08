@@ -647,3 +647,42 @@ console.log(movements.every(deposit)); // we can use the const callback in all d
 console.log(movements.filter(deposit));
 
 
+
+
+
+// --- Flat and FlatMap methods ---
+
+const arr = [[1,2,3], [4,5,6], 7,8];
+//nested array that has elements even outside
+//Flat method- no call back function- > removes nested arrays and makes into one, flattens it
+
+console.log(arr.flat());
+
+//array with even deeper nested-> flat method only goes one level deep when flattening an array
+const arrDeep = [[[1,2],3], [4,[5,6]], 7,8];
+console.log(arrDeep.flat()); 
+// u can adjust the number of levels while providing  number in the argument
+console.log(arrDeep.flag(2));
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements); // it will create a nested struture with all the values in 1 array 
+
+
+//chaining
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc +mov, 0);
+console.log(overallBalance);
+
+
+// --- flatMap --- 
+
+
+// basically combines flat and map method at the same time in one method
+
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements) // map method that in the end flattens the result--> only goes 1 level deep,  if you need to go down deeper -> you will need to seprate them 
+  .reduce((acc, mov) => acc +mov, 0);
+console.log(overallBalance2);
+
