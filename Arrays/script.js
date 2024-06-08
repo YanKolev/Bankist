@@ -229,6 +229,30 @@ btnTransfer.addEventListener('click', function(e){
   }
 });
 
+// IMPLEMENTING A LOAN FEATURE
+
+btnLoan.addEventListener('click', function (e){
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
+    //add movement
+    currentAccount.movements.push(amount);
+    //update UI
+    updateUI(currentAccount)
+  }
+  inputLoanAmount.value = ''
+
+})
+
+
+
+
+
+
+
+
 
 //Findindex method- works same as find, just returns the index instead of the element.
 //closing account feature-> means to delete that acc object from the accounts array. 
@@ -588,5 +612,38 @@ console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jesica Davis');
  //when we loop over the accounts, each account is an element
 console.log(account);
+
+
+
+
+
+//             ---SOME AND EVERY METHODS---
+
+
+//here it checks only for equality 
+console.log(movements);
+console.log(movements.includes(-130));
+//we can test ith the inludes method if a an array includes a certain value, however we can only fully test for equality
+// if we want to test for a condition we can use the SOME method.
+
+
+// we can specify a condition here
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits); // with the we can check if the re are any deposits( if its higher than 0 is a deposit) it returns either TRUE/ FALSE
+
+
+// EVERY Method
+//only returns true if ALL of the elements in the array satisfy the condition that you put in the call back function
+// every element has to pass it, hence its name 
+
+console.log(movements.every(mov => mov >0));
+console.log(account4.movements.every(mov => mov > 0)); // only in this account all the movements are passing the conditions
+
+//Separate callback 
+
+const deposit = mov => mov >0; // this is will be used as a function
+console.log(movements.some(deposit));
+console.log(movements.every(deposit)); // we can use the const callback in all different scenarios, whichever we need. 
+console.log(movements.filter(deposit));
 
 
