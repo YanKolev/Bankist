@@ -65,227 +65,146 @@ const displayMovements = function(movements) {
   containerMovements.innerHTML = ''; // html return everything including the html/ but here is used as a setter.
 
   movements.forEach(function(mov, i){
-    const type = mov > 0 ? 'deposit' : 'withdrawal'
-
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
-    <div class="movements__row">
-      <div class="movements__type movements__type--${type}">${i + 1}</div>
-      
-      <div class="movements__value">${mov}€</div>
-  </div>
-
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__value">${mov}€</div>
+      </div>
     `;
 
-    containerMovements.insertAdjacentHTML("afterbegin",html)
-      //any new child element will appear before the child elements that there were. 
-      
-
-
-
+    containerMovements.insertAdjacentHTML("afterbegin", html); // any new child element will appear before the child elements that there were.
   });
 };
 
-
-
-
-//display balance function with movements and reduce method.
-const calcDisplayBalance = function(acc){
-  acc.balance = acc.movements.reduce((acc, mov)=>acc +mov, 0);
-
-  labelBalance.textContent = `${acc.balance}€`
+// Display balance function with movements and reduce method.
+const calcDisplayBalance = function(acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
-
-
-//creating  display summary function (incomes, outcomes, interest)
-
-const calcDisplaySummary = function (acc){
+// Creating display summary function (incomes, outcomes, interest)
+const calcDisplaySummary = function(acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`
+  labelSumIn.textContent = `${incomes}€`;
 
   const out = acc.movements
-    .filter(mov => mov <0)
-    .reduce((acc, mov) => acc +mov, 0)
-  labelSumOut.textContent = `${Math.abs(out)}€`
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => deposit *acc.interestRate/ 100)
-    .filter((int, i , arr) =>{ //in case there is a new rule if the bank decideds to exclude interest lower than 1 
-      console.log(arr);
-      return int >=1;
-    })
-    .reduce((acc,int)=>acc+ int, 0);
-  labelSumInterest.textContent = `${interest}€`
+    .map(deposit => deposit * acc.interestRate / 100)
+    .filter(int => int >= 1) // In case there is a new rule if the bank decides to exclude interest lower than 1
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
 
-
-
-}
-calcDisplaySummary(account1.movements);
-
-//creating username functionality 
-// using for each as it mutates and creates the side effect that we are looking for the functionality 
-const createUsernames = function(accs){
-  accs.forEach(function(acc){
+// Creating username functionality using forEach as it mutates and creates the side effect that we are looking for the functionality
+const createUsernames = function(accs) {
+  accs.forEach(function(acc) {
     acc.username = acc.owner
-    .toLowerCase()
-    .split(' ')
-    .map(name => name[0]) //map was used to create a new array to simplify the name creation
-    .join('');
-  })
-
-
-
-  /*const username = user
-    .toLowerCase()
-    .split(' ')
-    .map(name => name [0]) //this is returning with an arrow function 
-    .join('')
-  return username;*/
-
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0]) // Map was used to create a new array to simplify the name creation
+      .join('');
+  });
 };
 
 createUsernames(accounts);
 console.log(accounts);
 
-// function for updating UI 
-const updateUI = function(acc){
-
-  //Display movements
+// Function for updating UI
+const updateUI = function(acc) {
+  // Display movements
   displayMovements(acc.movements);
-
-  //Display balance
+  // Display balance
   calcDisplayBalance(acc);
-
-  //Display summary
+  // Display summary
   calcDisplaySummary(acc);
-
 };
 
+// Event handlers
+let currentAccount;
 
+btnLogin.addEventListener('click', function(e) {
+  // Prevent form from submitting
+  e.preventDefault();
+  console.log('LOGIN');
 
-//Event handlers
-
-let currentAccount; 
-
-
-btnLogin.addEventListener('click', function(e){
-  //prevent form from submitting
-  e.preventDefault()
-  console.log('LOGIN')
-
-  //in order to log the user, we need to find the account from the accounts array 
-  // username's from the user that input it
-  currentAccount = accounts.find(acc =>acc.username === inputLoginUsername.value);
+  // In order to log the user, we need to find the account from the accounts array
+  // Username's from the user that input it
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
   console.log(currentAccount);
 
-  if(currentAccount?.pin === Number(inputLoginPin.value)){
-    
-    //Display UI and message
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
     labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
-
     containerApp.style.opacity = 100;
 
-    //Clear the input fields
+    // Clear the input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
-
-    // update UI call
+    // Update UI call
     updateUI(currentAccount);
-
-    /*
-    Commenting out in order to refactor it to a single function
-
-    //Display movements
-    displayMovements(currentAccount.movements);
-
-    //Display balance
-    calcDisplayBalance(currentAccount);
-
-    //Display summary
-    calcDisplaySummary(currentAccount);
-    */
   }
-
 });
 
-btnTransfer.addEventListener('click', function(e){
+btnTransfer.addEventListener('click', function(e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value)
+  const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
 
   inputTransferAmount.value = inputTransferTo.value = '';
 
-  if(amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc?.username !== currentAccount.username){
+  if (amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc?.username !== currentAccount.username) {
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
 
     updateUI(currentAccount);
-
   }
 });
 
-// IMPLEMENTING A LOAN FEATURE
-
-btnLoan.addEventListener('click', function (e){
+// Implementing a loan feature
+btnLoan.addEventListener('click', function(e) {
   e.preventDefault();
 
   const amount = Number(inputLoanAmount.value);
 
-  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
-    //add movement
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
     currentAccount.movements.push(amount);
-    //update UI
-    updateUI(currentAccount)
+    // Update UI
+    updateUI(currentAccount);
   }
-  inputLoanAmount.value = ''
+  inputLoanAmount.value = '';
+});
 
-})
+// Closing account feature -> means to delete that acc object from the accounts array
+// To delete an element from the array we use a splice method
 
-
-
-
-
-
-
-
-
-//Findindex method- works same as find, just returns the index instead of the element.
-//closing account feature-> means to delete that acc object from the accounts array. 
-//to delete an element from the array we use a splice method 
-
-
-//First we need to check if the credentials are correct and then proceed with the deletion 
-
-btnClose.addEventListener('click', function(e){
+// First we need to check if the credentials are correct and then proceed with the deletion
+btnClose.addEventListener('click', function(e) {
   e.preventDefault();
 
-  
-  
-  if(inputCloseUsername.value === currentAccount.username && (inputClosePin.value) === currentAccount.pin){
-
+  if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
     const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+    accounts.splice(index, 1); // Splice it will mutate the array and delete
 
-    accounts.splice(index, 1);//splice it will mutate the array and delete
-
-    //in order to "delete the account we will need to log it out and hide the UI"
-
+    // In order to "delete the account we will need to log it out and hide the UI"
     containerApp.style.opacity = 0;
-
   }
 
   inputCloseUsername.value = inputClosePin.value = '';
-})
+});
 
-//both find and findIndex method get access to current index and the current entire array.
-// both were addad in ES6, so there will not work in old browsers.
-
-
-
+// Both find and findIndex method get access to current index and the current entire array.
+// Both were added in ES6, so they will not work in old browsers.
 
 
 /////////////////////////////////////////////////
@@ -685,4 +604,19 @@ const overallBalance2 = accounts
   .flatMap(acc => acc.movements) // map method that in the end flattens the result--> only goes 1 level deep,  if you need to go down deeper -> you will need to seprate them 
   .reduce((acc, mov) => acc +mov, 0);
 console.log(overallBalance2);
+
+
+// --- Sorting Array ---
+
+
+// we are going to use the build in JS sort method. 
+
+//strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+console.log(owners);
+
+//Numbers
+console.log(movements);
+console.log(movements.sort());
 
