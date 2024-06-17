@@ -417,17 +417,21 @@ const movementsEuro = [200, 450, -400, 3000, -650, -130, 70, 1300]
 
 //const eurToUsd = 1.1;
 
-const convertedMovements = movementsEuro.map(function(mov){
-  return mov * eurToUsd; //here we use a function to solve the problem
-})
-console.log(movementsEuro);
-console.log(convertedMovements);
+//const convertedMovements = movementsEuro.map(function(mov){
+//  return mov * eurToUsd; //here we use a function to solve the problem
+//})
+//console.log(movementsEuro);
+//console.log(convertedMovements);
 
 //same method but with for of loop
 
+/*
 const movementsUSDfor = [];
 for (const mov of movementsEuro) movementsUSDfor.push(mov * eurToUsd);
 console.log(movementsUSDfor);
+
+*/
+
 //here we loop over one array and manually create a new one
 
 //we can simplify the callback function with an arrow
@@ -604,7 +608,7 @@ console.log(arr.flat());
 const arrDeep = [[[1,2],3], [4,[5,6]], 7,8];
 console.log(arrDeep.flat()); 
 // u can adjust the number of levels while providing  number in the argument
-console.log(arrDeep.flag(2));
+console.log(arrDeep.flat(2));
 
 const accountMovements = accounts.map(acc => acc.movements);
 console.log(accountMovements); // it will create a nested struture with all the values in 1 array 
@@ -668,3 +672,37 @@ movements.sort((a, b) => {
 
 console.log(movements);
 
+
+// --- Creating and filling arrays --- 
+
+console.log([1, 2, 3, 4, 5, 6, 7]);
+//console.log(new Array[1, 2, 3, 4, 5, 6, 7]);
+
+// we can generate arrays automatically
+
+// by using array constructor function and pass only 1 argumet- 7 
+
+const x = new Array(7); // when one argument is passed it creates a new empty argument with that lenght  
+console.log(x)
+//this output does not create a new array- it creates a new array with 7 empty elements of it
+// we can not use this x array for pretty much anything. 
+
+
+// Empty arrays + fill method
+x.fill(1);
+console.log(x)
+
+arr.fill(23, 4,6) // 23 is the parameter and the 4 and 6 are the positions
+
+
+//Array.from  function we are using it on the Array constructure
+//Array here is a function and on this function object we are calling the from method
+const y = Array.from({length: 7}, () => 1);
+console.log(y);
+
+const z = Array.from({length:7}, (_, i)=> i+ 1); // we use _ in order to show that this is a throw away parameter
+
+console.log(z);
+
+const dicez = Array.from({length:100}, (_,i)=>i+1); //exerise
+console.log(dicez);
