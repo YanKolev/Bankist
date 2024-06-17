@@ -61,8 +61,15 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function(movements) {
+//the sorting funtionality is set intially to false as we want to show how the movements are actually going
+//once e hit the button of sort it ill sort them out
+
+
+const displayMovements = function(movements, sort = false) {
   containerMovements.innerHTML = ''; // html return everything including the html/ but here is used as a setter.
+
+  //slice is used to make a copy of he array so we can apply the function and sort it
+  const movs = sort ? movements.slice().sort((a, b => a-b)): movements;
 
   movements.forEach(function(mov, i){
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -205,6 +212,22 @@ btnClose.addEventListener('click', function(e) {
 
 // Both find and findIndex method get access to current index and the current entire array.
 // Both were added in ES6, so they will not work in old browsers.
+
+
+//with this we are addding the sort functionality button, but when we click it it only sorts once
+//we are unable to 'revert' the sort of the account to its previous method, hence we need to have the following: 
+// by using a State variable which will monitor if we are currently sorting the array or not, 
+//needs to live outside of the function
+
+let sorted = false;
+
+btnSort.addEventListener('click', function(e){
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+
+})
+
 
 
 /////////////////////////////////////////////////
@@ -618,5 +641,30 @@ console.log(owners);
 
 //Numbers
 console.log(movements);
-console.log(movements.sort());
+//console.log(movements.sort()); - does not work
+
+//Rules of sort callbak function
+//return < 0 , A, B (keep order)
+//return > 0 , B, A (switch order)
+
+//Ascending order sort
+movements.sort((a, b) => {
+  if (a > b)
+    return 1;
+  if (b > a)
+    return -1;
+});
+
+//we can simplify the the method by makeing it as it follows
+//movements.sort((a, b)=> a-b);
+
+//Descending order sort
+movements.sort((a, b) => {
+  if (a > b) return -1;
+  if (a < b) return 1;
+});
+
+//movements.sort((a, b)=> b-a);
+
+console.log(movements);
 
