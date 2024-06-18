@@ -69,7 +69,7 @@ const displayMovements = function(movements, sort = false) {
   containerMovements.innerHTML = ''; // html return everything including the html/ but here is used as a setter.
 
   //slice is used to make a copy of he array so we can apply the function and sort it
-  const movs = sort ? movements.slice().sort((a, b => a-b)): movements;
+  const movs = sort ? movements.slice().sort((a, b) => a-b): movements;
 
   movements.forEach(function(mov, i){
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -225,8 +225,7 @@ btnSort.addEventListener('click', function(e){
   e.preventDefault();
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
-
-})
+});
 
 
 
@@ -702,7 +701,23 @@ console.log(y);
 
 const z = Array.from({length:7}, (_, i)=> i+ 1); // we use _ in order to show that this is a throw away parameter
 
-console.log(z);
+//console.log(z);
+
+
+//fill array from 1 to 100 with the method you learned
 
 const dicez = Array.from({length:100}, (_,i)=>i+1); //exerise
-console.log(dicez);
+//console.log(dicez);
+
+//Strings maps and sets are all irretables in JS. with them we can use the from method as its in the name - create an array FROM the said itterables
+
+//Similarity between query selector all and arrays is that the querry selector returns a node list-> similar to array, NOT REAL 
+// when you want to convert a node list from an array- array.from is perfect
+
+const movementsUI = Array.from(document.querySelectorAll('.movements_value'));
+
+labelBalance.addEventListener('click',function(){
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements_value'));
+})
+console.log(movementsUI.map(el => el.textContent.replace(E, '')))
