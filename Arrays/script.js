@@ -802,3 +802,75 @@ To just loop array
 -Based on callback:
 .forEach(does not create a new array just loops over it) */
 
+
+// Practice of array methods: 
+
+//to calculate how much in total has been deposited on the bank
+
+const bankDepositSum = accounts
+.flatMap(acc => acc.movements)
+.filter(mov => mov > 0)
+.reduce((sum, cur) => sum + cur, 0)
+
+
+//to count how many deposits have been in the bank with at least 1000k USD
+
+const numDeposits1000 = accounts
+.flatMap(acc => acc.movements)
+.filter(mov => mov >= 1000).length;
+
+//2nd way but, with reduce: 
+
+const numDeposits1000v2 = accounts
+.flatMap(acc => acc.movements)
+.reduce((count, cur) => (cur >= 1000 ? count +1 : count), 0)
+
+// ++ Operator importance / Prefix operator
+
+let a = 10;
+console.log(a++); 
+// if we addint it will return 0 or the original  point. but we can use it as Prefixed operator so instead of a++ => ++a
+console.log(a);
+
+
+// create a new object instead of just a number/string with the reduce method
+//object that contains the sum of the deposits and withdrawals
+
+/*
+Exercise 3-> using reduce method
+
+const { deposits, withdrawals } = accounts
+.flatMap(acc => acc.movements) // getting all of the movements in 1 array 
+.reduce((sums, cur) => {
+  //cur >  0 ? sums.deposits += cur : sums.withdrawals += cur;
+  sums[cur > 0 ? 'deposits' : 'withdrawals'] +=cur;
+  return
+
+}, {deposits: 0, withdrawals: 0})
+
+console.log(deposits, withdrawals);
+*/
+
+
+//Using titlecase
+
+// this is a nice title => This Is a Nice Title
+/*
+const convertTitleCase = function(title){
+  const capitalize = str => str[0].toUppercase()+ str.slice(1);
+
+  const exceptions  = ['a', 'an','and', 'the', 'but', 'or','on', 'in', 'with' ];
+
+  const titleCase = title
+  .toLowerCase()
+  .split(' ')
+  .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+  .join(' ');
+  return capitalize(titleCase);
+
+}
+
+
+console.log(convertTitleCase('this is a nice title'));
+console.log('this is a LONG title but not too long');
+console.log('and here is another title with an EXAMPLE') */
