@@ -721,3 +721,84 @@ labelBalance.addEventListener('click',function(){
     document.querySelectorAll('.movements_value'));
 })
 console.log(movementsUI.map(el => el.textContent.replace(E, '')))
+
+
+
+// --- Working with arrays ---
+
+/*Differences between the array methods
+
+
+Methods that mutate the original array: 
+
+-Add to original:
+.push (end)
+.unshift(start)
+
+-Remove from original:
+.pop(end)
+.shift(start)
+.splice(any)
+
+-Others:
+.reverse
+.sort
+.fil
+
+Methods that make a new array:
+
+-Computed from original:
+.map(loop)
+
+-Filtered using condition:
+.filter
+
+-Portion of original:
+.slice
+
+-Adding original to other:
+.concat
+
+-Flattening the original:
+.flat
+.flatMap
+
+An array index
+
+-Based of value:
+.indexOf
+
+-Based on test condition:
+.findIndex (can search for an element in the array)
+
+An array element
+
+-Based on test condition:
+.find
+
+To know if array includes(return boolean values/for if else statements)
+
+-Based on value:
+.includes
+
+-Based on test condition:
+.some
+.every
+
+A new string
+
+-Based on separator string:
+.join
+
+
+To transfor to value
+
+-Based on accumulator
+.reduce (boil down array to single value of any type: number, string, boolean or even new array or object)
+
+
+To just loop array
+
+-Based on callback:
+.forEach(does not create a new array just loops over it) */
+
