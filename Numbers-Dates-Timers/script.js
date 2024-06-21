@@ -251,3 +251,51 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// Converting and checking numbers
+
+// In javascript all numbers are represented as floating point numbers, always as decimals regardless if we write them as integers or decimals
+console.log(23 === 23.0)
+//Numbers are always stored in binary format- only composed of 0s and 1s
+
+//1 Base 10 - 0 to 9
+// Binary base 2(numbers) -> 0 and 1
+
+//strange errors
+console.log(0.1 + 0.2);
+console.log(0.1 + 0.2 === 0.3);
+
+//Conversion Strings to numbers
+console.log(Number('23')); // converting string to a number
+console.log(+'23'); // easier way, because when JS sees the plus operator it will do type coercion
+
+//Parsing
+
+console.log(Number.pasrseInt('30px', 10)) //in order for this to work we need the string to start with a number and JS, will read and try to figure out the number that we put and place it as a number
+console.log(Number.parseInt('e23', 10)) //it will print NaN- not a number as it cant detect it properly
+// parseInt- is for parse integer, so we can add second condition, best practice it would be to be 10 to avoid bugs
+
+console.log(Number.parseFloat('2.5rem')) //prints 2.5
+console.log(Number.parseInt('2.5rem')) // prints 2 (it stops at the decimal)
+
+
+//if Value is NaN
+console.log(Number.isNaN(20)) //isNAN- is it not a number-> with 20 it will be false, as 20 is false NAN- and its TRUE number
+console.log(Number.isNaN('20')) // it will also say false, its just regular value
+console.log(Number.isNaN(+'20x')) //it will be true- as its not a number
+console.log(Number.isNaN(23/0)) // it will result in Infinity, division by 0 is not allowed
+
+
+//there is a better method-> we could use isFinite
+//Best way of checking if value is number
+
+console.log(Number.isFinite(20)); //we will get TRUE/ the opposite of isNAN
+console.log(Number.isFinite('20')) // False
+console.log(Number.isFinite(+'20x')) // False
+console.log(Number.isFinite(23 / 0)) // False
+
+//Or to check for integers you can use: 
+
+console.log(Number.isInteger(23))
+console.log(Number.isInteger(23.0))
+console.log(Number.isInteger(23 / 0))
