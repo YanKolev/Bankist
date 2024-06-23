@@ -21,9 +21,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2024-06-20T17:01:17.194Z',
+    '2024-06-21T23:36:17.929Z',
+    '2024-06-22T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -81,6 +81,25 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
+const formatMovementDate = function(date){
+
+  const calcDaysPassed = (date1, date2) => Math.round(Math.abs(date2-date1) /(1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -90,10 +109,7 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date (acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovementDate(date);
 
     const html = `
       <div class="movements__row">
@@ -516,6 +532,7 @@ console.log( '------------------------');
 // The Dates that we created are in fact just another special type of object and they have their own methods, like arrays, maps or strings
 
 //Working with Dates
+/*
 const future = new Date(2037, 10, 19, 15, 23);
 console.log(future);
 console.log(future.getFullYear()); //ALWAYS USE GET FULL YEAR!!!! 
@@ -528,11 +545,30 @@ console.log(future.getSeconds());
 console.log(future.toISOString()); // international string format
 console.log(future.getTime()); //showing the miliseconds since jan 1st 1970 and the one that we put
 
+*/
+
 //we can reverse the timestamp
 console.log(new Date(2142253380000));
 
 //current timestamp
 console.log(Date.now());
 
-future.setFullYear(2040);
-console.log(future);
+//future.setFullYear(2040);
+//console.log(future);
+
+// Operations with dates 
+
+//we can do calculations with dates, we can subtrack one date from another date to calculate how many days. 
+//we can use the timestamps and perform the calculations with them 
+
+const future = new Date(2037, 10, 19, 15, 23);
+//console.log(Number(future));
+console.log(+future) // converst timestamp with miliseconds and back 
+
+//function that takes in 2 dates and gonna return the number of days that pass between the days
+
+const calcDaysPassed = (date1, date2) => Math.abs(date2-date1) /(1000 * 60 * 60 * 24);
+
+const days1 =calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24)); //result should be 10 as its only 10 days that passed between the time
+
+console.log(days1);
