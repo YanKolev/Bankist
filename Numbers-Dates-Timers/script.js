@@ -361,3 +361,79 @@ console.log((2.7).toFixed(3))
 console.log((2.345).toFixed(2)) //string 2.35
 console.log(+(2.345).toFixed(2)) // number 2.35
 
+// Remainder Operator 
+// remainder operator simply returns the remainder of a division
+
+console.log(5 % 2); //1 is the remainder
+console.log(5 / 2); //5 = 2+2+1 
+console.log(8 % 3); //2
+console.log(8 /3); //8= 2 * 3 + 2
+
+//number is even, if  its divisible by 2
+console.log(6 % 2)
+
+//function for checking if number is even or odd
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(8))
+console.log(isEven(23))
+console.log(isEven(51))
+
+labelBalance.addEventListener('click', function (){
+  [...document.querySelectorAll('.movements_row')].
+  forEach(function(row, i){
+    // 0, 2, 4, 6
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    // 0, 3, 6, 9
+    if (i % 3 === 0) row.style.backgroundColor = 'blue'
+  })
+
+});
+
+// Numeric Separators from ES2021// using only numbers in code. DO NOT USE NUMBER AS A STRING (from API)
+
+const diameter = 287_460_000_000;
+//when facing a big number you can use underscore to pause numbers like that-> 1000 separator
+
+const priceCents = 345_99; 
+
+const transferfee = 15_00;
+
+// --- BIGINT ---
+
+//numbers are represented internally in JS as 64 bits, 64s 1s and 0es, only 53 are used to store the digits themselves
+// the rest are for storing the position of the deimal point nad the sign, hence its a limit how big number can be
+
+console.log(2 ** 53 - 1) // the biggest number that JS can safely represent, 
+// 2(base of 2->since we are working with 0 and 1 ) to the power of 53 -1, minus one is becuase we are starting from 0
+console.log(Number.MAX_SAFE_INTEGER); //saved in the memory and any integer that is bigger is not safe 
+
+//from ES 2020- BIG INT primitive has been added to be able to store as big numbers as we can
+console.log(4234234242623623423423423423423423n)
+//with the n at back you are able to display the number or  use the big Int function 
+console.log(BigInt(4234234242))
+
+//Operations with bigint (most of the operations work fine with big int)
+console.log(10000n + 10000n);
+
+
+//you can not mix bigint with regular number
+const huge = 324234234234234234234234234234
+const num = 23
+console.log(huge * num) // it will not going to work so u need to correct it in v2
+//v2
+console.log(huge * BigInt(num)) // you need to convert the num into big int so JS can regognize it
+
+
+// NB!!!! Math operation will not work with BIGINT
+// NB!!!! there are 2 exceptions- comparison operator and plus operator when working with strings
+
+console.log(20n > 15); //true
+console.log(20n === 20); //false
+console.log(20n == 20); //true- as it will make type coercion and transform it
+
+//string concatinations 
+console.log(huge + 'is REALLY BIG');
+
+//Divisions
+console.log(10n /3n); //3n it will return closest big int, cuts the decimal part off
