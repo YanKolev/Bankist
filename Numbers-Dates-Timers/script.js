@@ -271,7 +271,7 @@ console.log(+'23'); // easier way, because when JS sees the plus operator it wil
 
 //Parsing
 
-console.log(Number.pasrseInt('30px', 10)) //in order for this to work we need the string to start with a number and JS, will read and try to figure out the number that we put and place it as a number
+//console.log(Number.pasrseInt('30px', 10)) //in order for this to work we need the string to start with a number and JS, will read and try to figure out the number that we put and place it as a number
 console.log(Number.parseInt('e23', 10)) //it will print NaN- not a number as it cant detect it properly
 // parseInt- is for parse integer, so we can add second condition, best practice it would be to be 10 to avoid bugs
 
@@ -422,7 +422,7 @@ const huge = 324234234234234234234234234234
 const num = 23
 console.log(huge * num) // it will not going to work so u need to correct it in v2
 //v2
-console.log(huge * BigInt(num)) // you need to convert the num into big int so JS can regognize it
+//console.log(huge * BigInt(num)) // you need to convert the num into big int so JS can regognize it
 
 
 // NB!!!! Math operation will not work with BIGINT
@@ -437,3 +437,61 @@ console.log(huge + 'is REALLY BIG');
 
 //Divisions
 console.log(10n /3n); //3n it will return closest big int, cuts the decimal part off
+
+
+// --- Creating Dates --- 
+
+//create a date- 4 ways of creating them in JS, all use new date constructor function, but can accept different parameters
+
+//use the new date
+const now = new Date();
+console.log(now);//getting current date and time 
+
+//is to parse the date from a date string
+console.log(new Date('Jun 23 2024 13:21:15'));
+//we can also write a strin ourselves 
+console.log(new Date('December 24, 2015'));
+//it can be quite unreliable to make one by hand-> HOWEVER if its made by JS itself it can pretty safe
+
+console.log(new Date(account1.movementsDates[0])); //taken from the object of the project 
+//Z means UTC at the end 
+
+console.log(new Date(2037, 10, 19, 15, 23, 57)); // we have 10, but it shows the number in console as November, 
+//that means the month in JS is 0 based. 
+
+//JS autocorrects the date, we will make that Nov 31(doesnt exist and it will autocorrect to the next day) 
+console.log(new Date(2037, 10, 31)); // It will print 1 Dec on the console
+
+//we can pass into the date costructor funtion the miliseconds, past since the begging of Unix time 
+
+console.log(new Date(0));// it will show the Origigal date of Unix Creation
+
+//how to convert to miliseonds
+console.log( new Date (3 * 24 * 60 * 60 * 1000)); //3 days, 24 hours 60min, 60 sec, 1000 miliseconds
+// it will return jan 4 1970 
+
+console.log( '------------------------');
+
+// The Dates that we created are in fact just another special type of object and they have their own methods, like arrays, maps or strings
+
+//Working with Dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear()); //ALWAYS USE GET FULL YEAR!!!! 
+console.log(future.getMonth()); //ALWAYS REMEMBER THAT MONTHS ARE 0 BASED
+console.log(future.getDate());
+console.log(future.getDay());// ITS THE DAY OF THE WEEK-> 0 is SUNDAY ( 4 is Thursday)
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString()); // international string format
+console.log(future.getTime()); //showing the miliseconds since jan 1st 1970 and the one that we put
+
+//we can reverse the timestamp
+console.log(new Date(2142253380000));
+
+//current timestamp
+console.log(Date.now());
+
+future.setFullYear(2040);
+console.log(future);
