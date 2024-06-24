@@ -193,17 +193,56 @@ const updateUI = function (acc) {
 
 //making a logout function 
 const startLogoutTimer = function(){
+
+  const tick = function(){
+
+    const min = String(Math.trunc(time / 60)).padStart(2, '0');
+    const sec = String(time % 60).padStart(2, '0');
+    
+
+    //in each call, print remaining time to UI
+    labelTimer.textContent = `${min}: ${sec}`;
+
+
+
+    //when 0 seconds, stop timer and logout user
+
+    if(time === 0){
+      clearInterval(timer);
+      labelWelcome.textContent = 'Login to get started';
+      containerApp.style.opacity = 0;
+    }
+  
+    //decrease 1s
+    time--; // or it could be time -1
+
+
+
+  }
+  //set time to 2 min,
+  let  time = 120;
+
+  //call the timer every second
+  tick();
+   const timer = setInterval(tick, 1000)
+   return timer;
+
+
+
   
 }
 
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer; //making them global variables->so the timer persist during different logins // they need to be in the parent scope
 
 // FAKE ALWAYS LOGGED IN 
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+//currentAccount = account1;
+//updateUI(currentAccount);
+//containerApp.style.opacity = 100;
+
+
+
 /*
 //setting up the date for the app
 const now2 = new Date();
@@ -268,6 +307,10 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    //timer
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -297,6 +340,11 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    //Reset Timer
+    clearInterval(timer);
+     //its important thats outside of the handler functions, we need it for other operations/callback functions
+    timer = startLogoutTimer();
   }
 });
 
@@ -313,7 +361,11 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
-    updateUI(currentAccount);},2500)
+    updateUI(currentAccount);
+          // Reset timer
+          clearInterval(timer);
+          timer = startLogoutTimer();
+  },2500)
   }
   inputLoanAmount.value = '';
 });
