@@ -190,6 +190,12 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+
+//making a logout function 
+const startLogoutTimer = function(){
+  
+}
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
@@ -300,14 +306,14 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
+    setTimeout(function(){// Add movement
     currentAccount.movements.push(amount);
 
     //Add loan date
     currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update UI
-    updateUI(currentAccount);
+    updateUI(currentAccount);},2500)
   }
   inputLoanAmount.value = '';
 });
@@ -627,3 +633,39 @@ console.log('Germany:',new Intl.NumberFormat('de-DE', options2).format(numz));
 console.log('Syria: ', new Intl.NumberFormat('ar-SY', options2).format(numz));
 //we can use the languae of the browser
 //console.log(navigator.language, new Intl.NumberFormat(navigaor.language).format(numz));
+
+
+
+// --- Timers ---- 
+
+// there are two kinds of timers-> settimeout timer runs just once after a defined time, 
+// second kind-> interval timer->keeps running forever until we stop it.
+
+//simulating a timer by ordering a pizza 
+
+setTimeout((ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`), 3000, 'olives', 'spinach') //second argument is the time in miliseconds( one second is 1000 miliseconds)
+// () => console.log('Here is your pizza' this callback function is the first argument of the settimeout function
+//we pass the function as an argument, we do not call it ourselves 
+
+//the code execution does not stop after the settimeout function, Js will keep counting the time and then move to next line
+//this mechanism is called asyncronis JS 
+
+console.log('Waiting ...') // will appear immediately in the console and after 3 seconds our string will appear on the console
+
+//we can cancel the timeout, we need to put the ingredients into an array , and will use spread operator and use if block then cleartimeout. after we assign it with a variable. 
+
+const ingredients2 = ['olives', 'spinach']
+const pizzaTimer = setTimeout((ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`), 3000, ...ingredients2);
+console.log('Waiting...');
+
+if(ingredients2.includes('spinach')) clearTimeout(pizzaTimer);
+
+//settimeout simply schedules a function to run after certain amount of time but the callback function is ran only once
+
+//setInterval
+setInterval(function(){
+  const now = new Date();
+  //console.log(now)
+}, 1000)
+//with the setInterval the function does not stop, only repeats itself after the count of seconds
+
