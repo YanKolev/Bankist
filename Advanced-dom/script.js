@@ -100,4 +100,69 @@ document.querySelector('.btn--close--cookie').addEventListener('click', function
 
 //Styles, Attributes and Classes
 
-message.style.backgroundColor = '#33165e'
+message.style.backgroundColor = '#33165e';
+message.style.width = '120%';
+
+console.log(message.style.height); //using the style property, only works for inline styles that we set ourselves only using the style property
+console.log(message.style.backgroundColor)
+// we can not get a style that is hidden inside of a class or doesnt even exist
+
+//if we want to get the styles that we want we need to make the function- GET computed 
+
+console.log(getComputedStyle(message).color);
+
+message.style.height = 
+  Number.parseFloat(getComputedStyle(message).height, 10 +40 + 'px');// we are trying to add a number to a string so it will not work , so we need to add- Number.parseFloat
+
+document.documentElement.style.setProperty('--color-primary', 'orangered') // with this we can change the style of our website by changing 1 property
+// since its custom propery we need to use setProperty
+
+
+//Attributes - mainly in html but we can selec them 
+
+const logo = document.querySelector('.nav__logo');
+console.log(logo.alt); // images are supposed to have those atributes- alt/src so if we specify them in the html , then JS will automatically create a property on the object
+console.log(logo.src);
+console.log(logo.className);
+
+logo.alt = 'Beautiful minimalist logo';
+
+//Non-standard
+console.log(logo.designer); // its not a approved attribute, hence it will be undefined
+console.log(logo.getAttribute('designer'))// it will get the attribute that we manually put in 
+
+//there is opposite of getattribute- its set attribute
+logo.setAttribute('company', 'Bankist');
+
+/* Note on the URL-s when we are looging for the src in the logo, 
+in the console is printed http://127.0.0.1:5500/Advanced-do which is the Absolute uRL
+its different that we have the source for image in the HTML, in the HTML we have the 
+so-called relative URL which showsthe source of the image and folder and its location. */
+
+//If we want to get the relative URL, we need to use the GET ATTRIBUTE in order to target it 
+
+console.log(logo.getAttribute('src'));
+
+/* Same is also true for the href attribute on links, */
+
+const link = document.querySelector('.nav__link--btn');
+console.log(link.href); // this will provide us with the absolute property
+console.log(link.getAttribute('href')); // here will print #
+
+//Data attributes 
+
+/* it has to start with data, thats why we added another attribute into the html 
+and dash and whatever we want so now we can target it*
+-in html we use the dash, but in JS we will write with camelCase*/
+
+console.log(logo.dataset.versionNumber);
+
+//Classes - 4 classes- this is preffered method of using 
+logo.classList.add('c', 'j');
+logo.classList.remove('c','j')
+logo.classList.toggle('c','j')
+logo.classList.contains('c', 'j')
+
+
+//Dont use- this will overite everyting, 
+logo.className = 'jonas'
