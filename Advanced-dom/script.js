@@ -40,6 +40,7 @@ document.addEventListener('keydown', function (e) {
 //                           Course notes:
 
 
+/*
 
 //SELECTING ELEMENTS 
 
@@ -141,13 +142,13 @@ so-called relative URL which showsthe source of the image and folder and its loc
 
 //If we want to get the relative URL, we need to use the GET ATTRIBUTE in order to target it 
 
-console.log(logo.getAttribute('src'));
+//console.log(logo.getAttribute('src'));
 
 /* Same is also true for the href attribute on links, */
 
-const link = document.querySelector('.nav__link--btn');
-console.log(link.href); // this will provide us with the absolute property
-console.log(link.getAttribute('href')); // here will print #
+//const link = document.querySelector('.nav__link--btn');
+//console.log(link.href); // this will provide us with the absolute property
+//console.log(link.getAttribute('href')); // here will print #
 
 //Data attributes 
 
@@ -155,9 +156,10 @@ console.log(link.getAttribute('href')); // here will print #
 and dash and whatever we want so now we can target it*
 -in html we use the dash, but in JS we will write with camelCase*/
 
-console.log(logo.dataset.versionNumber);
+//console.log(logo.dataset.versionNumber);
 
 //Classes - 4 classes- this is preffered method of using 
+/*
 logo.classList.add('c', 'j');
 logo.classList.remove('c','j')
 logo.classList.toggle('c','j')
@@ -166,3 +168,42 @@ logo.classList.contains('c', 'j')
 
 //Dont use- this will overite everyting, 
 logo.className = 'jonas'
+
+*/
+
+// Implementing smooth scrolling-> 1 click and the effect is that it will move us to the first section: there are 2 ways of doing it
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+//adding event listener to the button and function
+
+btnScrollTo.addEventListener('click', function (e){
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords);
+
+  console.log(e.target.getBoundingClientRect());
+
+  console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset)
+
+/*
+window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
+
+//oldschool way 
+window.scrollTo({
+  left: s1coords.left + window.pageXOffset,
+  top: s1coords.top + window.pageYOffset,
+  behaviour: 'smooth'
+})
+*/
+
+//scrolling new way
+section1.scrollIntoView({behavior: 'smooth'})
+
+
+
+
+});
+
+
+
