@@ -92,7 +92,12 @@ header.append(message);
 //header.after(message); after the element AS A SIBLING
 
 //DELETE ELEMENTS 
-document.querySelector('.btn--close-cookie').addEventListener('click', function(){
+document.querySelector('.btn--close--cookie').addEventListener('click', function(){
     //message.remove(); // newer way of removal 
     message.parentElement.removeChild(message); //old way of removal   
 });
+
+
+//Styles, Attributes and Classes
+
+message.style.backgroundColor = '#33165e'
