@@ -205,5 +205,61 @@ section1.scrollIntoView({behavior: 'smooth'})
 
 });
 
+// Events and Event handlers 
+
+/*
+Event is basically a signal that is generated, by a certain DOM node . And a signal is indication that something has happened on the webpage.
+no matter if we handle certain event or not -a clik that event will always happen if a user click, so it doesnt matter if we actually listen for it or not
+*/
+/*
+//mouse enter event- its like the hover element in css, it fires when a mouse enters a certain element
+const h1 = document.querySelector('h1');
+
+h1.addEventListener('mouseenter', function(e){
+  alert('addEventListener: Great! You are reading the heading!')
 
 
+});
+*/
+
+// you can refrence the mouse and keyboard events from the MDN docs
+
+
+/*
+//another way of attaching an event listen to an element- by using the ON event propery on the element
+//its an older way of listenig for events, BETTER USE ADDEVENT LISTENER
+
+h1.onmouseenter = function(e){
+  alert('addEventListener: Great! You are reading the heading!')
+
+
+};
+*/
+
+//reasons why add event listener is better-> 1- it allow us to have multiple event listeners to the same event
+//2 -> we can remove an event handler in case we do not need it anymore
+
+//to do so we need to export the function into a named function
+
+//copy the original version so we can show the difference
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function(e){
+  alert('addEventListener: Great! You are reading the heading!')
+
+  //After we listened for an event, then handled that even, then we can remove that listener.
+
+  //h1.removeEventListener('mouseenter', alertH1); // this is why we had to export the function in its own function, so we can listen to the event just once
+
+};
+
+
+h1.addEventListener('mouseenter', alertH1);
+
+//or we can remove it after certain time has passed, it can live outside of the function
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+
+//third way of handling events which is with html attributes
+//NOT TO BE USED 

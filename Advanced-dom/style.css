@@ -662,7 +662,7 @@
   }
   
   /* COOKIE MESSAGE */
-  .cookie-message {
+  .cookie-message { 
     display: flex;
     align-items: center;
     justify-content: space-evenly;
