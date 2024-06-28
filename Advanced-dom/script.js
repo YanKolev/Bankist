@@ -263,3 +263,61 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 
 //third way of handling events which is with html attributes
 //NOT TO BE USED 
+
+
+// Event BUBLING AND CAPTURING
+
+
+//JS events have so called capturing and bubling phase
+
+// EVENT PROPAGATION, MAINLY EVENT BUBLING
+
+// Maily we will make it by attaching event handlers to the navigation link  and also all of its parents and when we clicked, 
+// we will give random background colors
+
+// random color rgb(255,255,255)
+const randomInt =(min, max) => 
+  Math.floor(Math.random() * (max-min +1) + min); //formula for random number generator
+const randomColor = () => 
+  `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+
+console.log(randomColor(0, 255));
+
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  //this-> this keyword on an event handler points out to the element on which that event handler is attached
+
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+  console.log(e.currentTarget === this);
+
+  //Stop event propagation
+  //e.stopPropagation(); // now 2 parent elements will not change their backgounds.
+  //stopping event propagation is not recommended
+
+
+})
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+
+  console.log('CONTAINER', e.target, e.currentTarget);
+
+  // due to the bubling, and propagation, when we have this event on nav_link it also happens for the PARENT element-> nav_links
+})
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+
+  this.style.backgroundColor = randomColor();
+  console.log('NAV', e.target, e.currentTarget);
+})
+
+//with the target, all 3 elements will have random color, and the target is always the same ->
+// FOR all 3 handlers the target will always be the same-> ALWAYS THE ELEMENT THAT THE CLICK FIRST HAPPENED
+// and of the e of the function they receive it as its the event bubling
+//it originates from the link but then bubbles up to ther parent elements
+// when we add the e.currentTarget, the link is not the same 
+//HOWEVER e.currentTarget === this keyword!!!! exactly the same
+// The event handlers are not pick up the events during the capture phase
+//addeventListener is only listening to elements in the bubling phase and not in the captuing phase
+// if we want to catch specifically, we will need to add 3rd element in the addeventlistener function, only using true/false
