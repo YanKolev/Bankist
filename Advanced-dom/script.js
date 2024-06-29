@@ -34,6 +34,46 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//Page navigation 
+
+//1st try without event delection - 
+//its unnecessary as we are creating a copy of the function, and it will create impact on performance if we have more than 3 elements
+
+/*
+document.querySelectorAll('.nav__link').forEach(function(el){
+  el.addEventListener('click', function(e){
+    e.preventDefault();
+    const id = this.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+    
+
+  })
+}) // it will return node list and we can use the FOREAH method of the elements that are in the node list
+*/
+
+// To prevent that is better to have event delegation - we use the fact that events bubble up, and we do that 
+//by putting the event listener on a common parent of all the elements that we ar einterested in.
+//and we can catch that element in the parent element and handle it there, as we know its origins.
+
+// In event delegation we need 2 steps - first we add the event listener to a parent element of all the elements that we are interested in, 
+//second- determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e){
+  e.preventDefault(e);
+
+  //Matching strategy
+  if(e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior: 'smooth'});
+  }
+
+})
+
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -170,7 +210,7 @@ logo.classList.contains('c', 'j')
 logo.className = 'jonas'
 
 */
-
+/*
 // Implementing smooth scrolling-> 1 click and the effect is that it will move us to the first section: there are 2 ways of doing it
 
 const btnScrollTo = document.querySelector('.btn--scroll-to');
@@ -186,6 +226,10 @@ btnScrollTo.addEventListener('click', function (e){
 
   console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset)
 
+
+
+
+
 /*
 window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
 
@@ -198,12 +242,14 @@ window.scrollTo({
 */
 
 //scrolling new way
-section1.scrollIntoView({behavior: 'smooth'})
+//section1.scrollIntoView({behavior: 'smooth'})
 
 
 
+/*
+}); 
 
-});
+*/
 
 // Events and Event handlers 
 
@@ -243,6 +289,7 @@ h1.onmouseenter = function(e){
 
 //copy the original version so we can show the difference
 
+/*
 const h1 = document.querySelector('h1');
 
 const alertH1 = function(e){
@@ -254,6 +301,10 @@ const alertH1 = function(e){
 
 };
 
+*/
+
+
+/*
 
 h1.addEventListener('mouseenter', alertH1);
 
@@ -264,7 +315,11 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 //third way of handling events which is with html attributes
 //NOT TO BE USED 
 
+*/
 
+
+
+/*
 // Event BUBLING AND CAPTURING
 
 
@@ -321,3 +376,11 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 // The event handlers are not pick up the events during the capture phase
 //addeventListener is only listening to elements in the bubling phase and not in the captuing phase
 // if we want to catch specifically, we will need to add 3rd element in the addeventlistener function, only using true/false
+
+*/
+
+//Event Delegation: Implementing Page Navigation
+
+//Smooth scrolling behaviour so when we use the nav bar it will scrollsmoothly to the corresponding section
+
+// Using event delegation at top of the file
