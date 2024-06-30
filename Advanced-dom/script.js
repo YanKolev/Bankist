@@ -171,23 +171,30 @@ const handleHover = function(e){
  observer.observe(section1);
 */
 const header = document.querySelector('.header');
-const navHeight = nav.getBoundingClientRect().height;
+const navHeight = nav.getBoundingClientRect().height; // Get the height of the navigation bar
 
-const stickyNav = function(entries){
-  const [entry] = entries;
+// Function to handle the sticky navigation logic
+const stickyNav = function(entries) {
+  const [entry] = entries; // Destructure entries to get the first entry
 
-  if(entry.isIntersection) nav.classList.add('sticky');
-  else nav.classList.remove('sticky');
-}
+  // Add or remove the sticky class based on whether the header is intersecting the viewport
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
 
-
-const headerObserver = new IntersectionObserver
-(stickyNav, {
-  root: null,
-  threshold: 0, //intersection ration
-  rootMargin: `-${navHeight}px`, //with this the navigation will be applied.
+// Create a new IntersectionObserver to observe the header
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null, // Use the viewport as the root
+  threshold: 0, // Intersection ratio, trigger callback as soon as even one pixel is visible
+  rootMargin: `-${navHeight}px`, // Adjust the trigger point by the height of the navigation bar
 });
+
+// Start observing the header element
 headerObserver.observe(header);
+
 
 
 
