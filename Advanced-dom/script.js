@@ -384,3 +384,57 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 //Smooth scrolling behaviour so when we use the nav bar it will scrollsmoothly to the corresponding section
 
 // Using event delegation at top of the file
+
+
+
+
+//DOM TRAVERSING- walking through the dom- selecting an element based on another element
+// we need to select element relative to other elements. or if we do not know the structure of the DOM 
+
+const h1= document.querySelector('h1');
+
+//Going downwards: selecting child elements
+//using queryselector
+console.log(h1.querySelector('.highlight'));
+//that would work, no matter how deep those elements will be in the dom,
+
+// to target directly the children
+console.log(h1.childNodes); //gives every single node
+console.log(h1.children); // html live collection  of the  DIRECT ''children''
+h1.firstElementChild.style.color = 'white'; //targets the first child element
+h1.lastElementChild.style.color = 'orangered';
+
+
+//Going upwards: parents
+
+console.log(h1.parentNode); // produces direct parent
+console.log(h1.parentElement);// also, produes dirent parent=> its an element but its a node
+
+//when we do not need a direct parent, no matter how far away its in the tree
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// we can use custom properties in CSS, closest header to h1 element and then applied our style to the element
+//used a lot in event delegation 
+
+//if this selector matches the element on which we are calling closest, then thats the element that is going to be returned
+
+//.closer Is the oposite of the query selector, both receive input string, 
+// query selector finds children NO MATTER HOW DEEP in the DOM tree
+//wihile closest FIND PARENTs no matter how deep 
+
+
+// Going sideways: selecting siblins- we can only select direct siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+
+console.log(h1.previousSibling);
+console.log(h1.nextSibling);
+
+//if we need all the siblings, then we can move up to the parent element and then read all the children from there
+console.log(h1.parentElement.children)
+
+/*
+[... h1.parentElement.children].forEach(function (el){
+  if(el !==h1) el.style.transform = 'scale(0.5)';
+})
+
+*/
