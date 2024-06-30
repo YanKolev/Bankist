@@ -129,6 +129,67 @@ const handleHover = function(e){
 
 
  nav.addEventListener('mouseout',handleHover.bind(1));
+/*
+
+ // Sticky navigation 
+
+ const intialCoords = section1.getBoundingClientRect();
+ console.log(intialCoords);
+
+ //we need to use the scroll event for now 
+ window.addEventListener('scroll', function(e){
+    console.log(window.scrollY);
+
+    if(window.scrollY > intialCoords.top) nav
+    .classList.add('sticky');
+    else nav.classList.remove('sticky');
+ })
+
+ // Improving sticky animation with INTERSECTION OBSERVER API
+
+ //this API allows our code to basically observe changes in a way that certain target element intersects with another element.
+ // or the way it intersects the viewport
+
+ //how it works without sticky animation. 
+
+ const obsCallback = function (entries, observer) {
+  entries.forEach(entry => {
+    console.log(entry);
+  })
+
+ }
+
+
+ const obsOptions = {
+  root: null,//when we add null it observes the entire vieport
+  //threshold: 0.1 // 0.1= 10%
+  threshold: [0, 0.2]
+ }
+
+ const observer = new IntersectionObserver();
+ (obsCallback, obsOptions);
+ observer.observe(section1);
+*/
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = function(entries){
+  const [entry] = entries;
+
+  if(entry.isIntersection) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+}
+
+
+const headerObserver = new IntersectionObserver
+(stickyNav, {
+  root: null,
+  threshold: 0, //intersection ration
+  rootMargin: `-${navHeight}px`, //with this the navigation will be applied.
+});
+headerObserver.observe(header);
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
