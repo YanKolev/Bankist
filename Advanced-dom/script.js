@@ -103,6 +103,32 @@ tabsContainer.addEventListener('click', function(e){
 });
 
 
+// Menu fade animation // Passing arguments to event handlers
+
+const handleHover = function(e){
+  if(e.target.classList.contains('nav__link')){
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link')
+    const logo = link.closest('.nav').querySelector('img');
+
+
+    siblings.forEach(el =>{
+      if(el !==link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+}
+
+
+ const nav = document.querySelector('.nav');
+
+
+ //Passing "argument" into handler function with this keyword
+ // we use mouseover because the element bubles and we can use that
+ nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+
+ nav.addEventListener('mouseout',handleHover.bind(1));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -420,27 +446,27 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 //DOM TRAVERSING- walking through the dom- selecting an element based on another element
 // we need to select element relative to other elements. or if we do not know the structure of the DOM 
 
-const h1= document.querySelector('h1');
+//const h1= document.querySelector('h1');
 
 //Going downwards: selecting child elements
 //using queryselector
-console.log(h1.querySelector('.highlight'));
+//console.log(h1.querySelector('.highlight'));
 //that would work, no matter how deep those elements will be in the dom,
 
 // to target directly the children
-console.log(h1.childNodes); //gives every single node
-console.log(h1.children); // html live collection  of the  DIRECT ''children''
-h1.firstElementChild.style.color = 'white'; //targets the first child element
-h1.lastElementChild.style.color = 'orangered';
+//console.log(h1.childNodes); //gives every single node
+//console.log(h1.children); // html live collection  of the  DIRECT ''children''
+//h1.firstElementChild.style.color = 'white'; //targets the first child element
+//h1.lastElementChild.style.color = 'orangered';
 
 
 //Going upwards: parents
 
-console.log(h1.parentNode); // produces direct parent
-console.log(h1.parentElement);// also, produes dirent parent=> its an element but its a node
+//console.log(h1.parentNode); // produces direct parent
+//console.log(h1.parentElement);// also, produes dirent parent=> its an element but its a node
 
 //when we do not need a direct parent, no matter how far away its in the tree
-h1.closest('.header').style.background = 'var(--gradient-secondary)';
+//h1.closest('.header').style.background = 'var(--gradient-secondary)';
 // we can use custom properties in CSS, closest header to h1 element and then applied our style to the element
 //used a lot in event delegation 
 
