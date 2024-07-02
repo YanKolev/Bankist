@@ -360,7 +360,7 @@ dotContainer.addEventListener('click', function(e){
 slider();
 */
 
-//Improved version : 
+//Improved version :
 
 const slider = function () {
   const slides = document.querySelectorAll('.slide');
@@ -817,3 +817,27 @@ console.log(h1.parentElement.children)
 //htmp div class operations, we will not create a new tab, we will hide the already existent info
 
 
+// Lifecycle DOM events
+
+//DOM content loaded- fired by the document when the HTML is completely parsed, all scripts must be downloaded and executet
+
+document.addEventListener('DOMContentLoaded', function(e){
+  console.log('HTML parsed and DOM tree Built!', e);
+})
+
+//we want our code to be executed after the dom is ready-> thats why we want to have the script tag AT THE END
+//when is down, we do not need to listen to the dom threes
+
+//Load even is fired by the window when the html, imgages and all external resources get loaded
+
+window.addEventListener('load', function (e){
+  console.log('Page fully loaded', e);
+});
+
+//before unload event which also gets fired on window
+
+//window. addEventListener('beforeunload', function(e){
+//  e.preventDefault();
+//  console.log(e);
+  //e.returnValue = ''; for historical reasons.
+//})
