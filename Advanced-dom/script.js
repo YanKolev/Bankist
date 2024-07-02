@@ -257,18 +257,37 @@ imgTargets.forEach(img => imgObserver.observe(img))
 
 //SLIDER COMPONENTS 
 
+/*
+
+const slider = function (){
 const slides = document.querySelectorAll('.slide');
 const btnLeft= document.querySelector('.slider__btn--left');
 const btnRight= document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector ('.dots');
 
 let curSlide = 0;
 const maxSlide = slides.length;
 
-/*
+
 const silder = document.querySelector('.slider');
 silder.style.transform = 'scale(0.5)';
 silder.style.overflow = 'visible'; 
-*/
+
+
+const createDots = function (){
+  slides.forEach((_, i) => {
+    dotContainer.insertAdjacentHTML ('beforeend', `<button class="dots__dot" data-slide="${i}"></button>`);
+  });
+
+};
+
+
+
+const activateDot = function(slide){
+  document.querySelectorAll('.dots__dot').forEach(dot=> dot.classList.remove('dots__dot--active'));
+
+  document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+}
 
 
 
@@ -277,7 +296,7 @@ const goToSlide = function(slide){
     `transalateX(${100 * (i-curSlide)}%)`))
 }
 
-goToSlide(0)
+
 
 //Next slide - change the percentages, so the slide we want to go is 0%
 
@@ -289,7 +308,8 @@ const nextSlide = function(){
 
   }
 
-  goToSlide(curSlide)
+  goToSlide(curSlide);
+  activateDot(curSlide);
   }
 
 const prevSlide = function(){
@@ -301,20 +321,129 @@ const prevSlide = function(){
 
   
   goToSlide(curSlide);
+  activateDot(curSlide)
 };
 
+// condensing function calls into 1 function- Initialization
 
+const init = function (){
+  goToSlide(0);
+  createDots();
+  activateDot(0);
+}
+
+init();
+//Event Handlers
 btnRight.addEventListener('click', nextSlide);
 btnLeft.addEventListener('click', prevSlide);
+
+
+//KEYBOARD EVENTS WITH THE SLIDERS 
+
+document.addEventListener('keydown',function(e){
+  if(e.key ==='ArrowLeft') prevSlide();
+  //short circuit version
+  //e.key === 'ArrowRight' && nextstile();
+})
+
+//event delegation, adding to the parent
+
+dotContainer.addEventListener('click', function(e){
+  if(e.target.classList.contains('dots__dot')){
+    const {slide} = e.target.dataset;
+    goToSlide(slide);
+    activateDot(slide);
+  }
   
+})
+}
+slider();
+*/
 
-  
+//Improved version : 
 
+const slider = function () {
+  const slides = document.querySelectorAll('.slide');
+  const btnLeft = document.querySelector('.slider__btn--left');
+  const btnRight = document.querySelector('.slider__btn--right');
+  const dotContainer = document.querySelector('.dots');
 
+  let curSlide = 0;
+  const maxSlide = slides.length;
 
+  /*
+  const silder = document.querySelector('.slider');
+  silder.style.transform = 'scale(0.5)';
+  silder.style.overflow = 'visible'; 
+  */
 
+  const createDots = function () {
+    slides.forEach((_, i) => {
+      dotContainer.insertAdjacentHTML('beforeend', `<button class="dots__dot" data-slide="${i}"></button>`);
+    });
+  };
 
-// curSlite= 1, -100%, 0%, 100%, 200%
+  const activateDot = function (slide) {
+    document.querySelectorAll('.dots__dot').forEach(dot => dot.classList.remove('dots__dot--active'));
+    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+  };
+
+  const goToSlide = function (slide) {
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${100 * (i - slide)}%)`; // Changed 'transalateX' to 'translateX'
+    });
+  };
+
+  // Next slide - change the percentages, so the slide we want to go is 0%
+  const nextSlide = function () {
+    if (curSlide === maxSlide - 1) {
+      curSlide = 0;
+    } else {
+      curSlide++;
+    }
+    goToSlide(curSlide);
+    activateDot(curSlide);
+  };
+
+  const prevSlide = function () {
+    if (curSlide === 0) {
+      curSlide = maxSlide - 1;
+    } else {
+      curSlide--;
+    }
+    goToSlide(curSlide);
+    activateDot(curSlide);
+  };
+
+  // Condensing function calls into 1 function - Initialization
+  const init = function () {
+    goToSlide(0);
+    createDots();
+    activateDot(0);
+  };
+  init(); 
+  // Event Handlers
+  btnRight.addEventListener('click', nextSlide);
+  btnLeft.addEventListener('click', prevSlide);
+
+  // KEYBOARD EVENTS WITH THE SLIDERS 
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide(); 
+  });
+
+  // Event delegation, adding to the parent
+  dotContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('dots__dot')) {
+      const { slide } = e.target.dataset;
+      goToSlide(slide);
+      activateDot(slide);
+    }
+  });
+};
+
+slider();
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
