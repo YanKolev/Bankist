@@ -841,3 +841,26 @@ window.addEventListener('load', function (e){
 //  console.log(e);
   //e.returnValue = ''; for historical reasons.
 //})
+
+// Efficient script Loading: 
+
+/*
+
+End of body placing of script tag- 
+1: Scripts are fetched and executed after the html is completely parsed. 
+-Use if you need to support old browsers
+
+
+Async in head
+1: Scripts are fetched asynchronously and executed immediately
+2:Usually the DOMContentLoaded event waits for ALL scripts to execute, except for asyncs scripts.
+- DOMcontentLoaded does not wait for an anysc script
+3: Scripts not guaranteed to execute in order
+4: Main use is for 3rd party scripts where order doesnt matter( e.g. Google Analytics)
+
+Defer in head
+1:Scripts are fetched asychronosly and executed AFTER THE HTML IS COMPLETELY PARSED
+2:DOMcontentLoaded event fires AFTER defer script is executed
+3:Scripts are executed in order!!!! 
+4:Overall best variant. USE IT FOR SCRIPTS WHEN ORDER MATTERS (e.g. including a library)
+*/
